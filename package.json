@@ -2,12 +2,13 @@
   "name": "litcoffee-sms",
   "version": "0.1.0",
   "description": "A simple literate CoffeeScript program for sending text messages via email.",
-  "main": "lib/sms.js",
+  "main": "index.js",
   "directories": {
     "doc": "docs"
   },
   "dependencies": {
     "chalk": "^0.5.1",
+    "cson": "^1.6.1",
     "nodemailer": "^1.2.1"
   },
   "devDependencies": {},

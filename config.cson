@@ -1,0 +1,9 @@
+{
+  auth:
+    user: 'cappuccino@gmail.com'
+    pass: 'ristretto'
+
+  recipients: [
+    { name: "Caffè Latte", address: "caffe.latte@espresso.coffee" }
+  ]
+}
