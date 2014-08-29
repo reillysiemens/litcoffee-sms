@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>sms.litcoffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>sms.litcoffee</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>I’d include a <a href="http://en.wikipedia.org/wiki/Shebang_(Unix)">shebang</a>, but the CoffeeScript creator <a href="https://github.com/jashkenas/coffeescript/issues/2215">has other ideas</a>,
+so I’ll just require our dependencies, <a href="https://github.com/sindresorhus/chalk">chalk</a> and <a href="https://github.com/andris9/Nodemailer">nodemailer</a>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>chalk = <span class="hljs-built_in">require</span> <span class="hljs-string">'chalk'</span>
+nodemailer = <span class="hljs-built_in">require</span> <span class="hljs-string">'nodemailer'</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Create a function, <code>sms</code>, that takes <code>auth</code>, <code>recipients</code>, <code>subject</code>, and
+<code>text</code> as parameters.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-title">sms</span> = <span class="hljs-params">(auth, recipients, subject, body)</span> -&gt;</span>
+  <span class="hljs-property">@auth</span> = auth
+  <span class="hljs-property">@recipients</span> = recipients
+  <span class="hljs-property">@subject</span> = String subject
+  <span class="hljs-property">@body</span> = String body</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Create a message object with the given parameters that we’ll send after we’ve
+authenticated.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  message =
+    <span class="hljs-attribute">from</span>: <span class="hljs-property">@auth</span>.user
+    <span class="hljs-attribute">to</span>: <span class="hljs-property">@recipients</span>
+    <span class="hljs-attribute">subject</span>: <span class="hljs-property">@subject</span>
+    <span class="hljs-attribute">text</span>: <span class="hljs-property">@body</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Create a new Nodemailer transport object for the Gmail service using <code>@auth</code>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  transporter = nodemailer.createTransport {
+    <span class="hljs-attribute">service</span>: <span class="hljs-string">'Gmail'</span>
+    <span class="hljs-attribute">auth</span>: <span class="hljs-property">@auth</span>
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Attempt to send the message and output the result.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  transporter.sendMail message, <span class="hljs-function"><span class="hljs-params">(error, info)</span> -&gt;</span>
+    status = <span class="hljs-keyword">if</span> error? <span class="hljs-keyword">then</span> chalk.red <span class="hljs-string">"<span class="hljs-subst">#{error.message}</span>"</span>
+    <span class="hljs-keyword">else</span> chalk.green <span class="hljs-string">"Sent message(s). Got '<span class="hljs-subst">#{info.response}</span>' from server."</span>
+    <span class="hljs-built_in">console</span>.log chalk.white <span class="hljs-string">"sms: <span class="hljs-subst">#{status}</span>"</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Export our function so the module can be required by other things.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-built_in">module</span>.exports = sms</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Support something akin to Python’s <code>if __name__ == &#39;__main__&#39;:</code> jazz.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">if</span> <span class="hljs-built_in">require</span>.main <span class="hljs-keyword">is</span> <span class="hljs-built_in">module</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Check to make sure we have the necessary command line arguments.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">if</span> process.argv[<span class="hljs-number">2</span>]? <span class="hljs-keyword">and</span> process.argv[<span class="hljs-number">3</span>]?</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>If we do then create our <code>auth</code> and <code>recipients</code> objects.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    auth =
+      <span class="hljs-attribute">user</span>: <span class="hljs-string">'cappuccino@gmail.com'</span>
+      <span class="hljs-attribute">pass</span>: <span class="hljs-string">'ristretto'</span>
+
+    recipients = [
+      { <span class="hljs-attribute">name</span>: <span class="hljs-string">"Caffè Latte"</span>, <span class="hljs-attribute">address</span>: <span class="hljs-string">"caffe.latte@espresso.coffee"</span> }
+    ]</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Make a call to the <code>sms</code> function taking <code>subject</code> and <code>body</code> from the command
+line parameters.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    sms auth, recipients, process.argv[<span class="hljs-number">2</span>], process.argv[<span class="hljs-number">3.</span>.].join <span class="hljs-string">" "</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>If we don’t have the necessary arguments then show a colorized usage message.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">else</span>
+    <span class="hljs-built_in">console</span>.log chalk.red <span class="hljs-string">"usage: sms &lt;subject&gt; &lt;body&gt;"</span></pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
