@@ -1,0 +1,31 @@
+{
+  "name": "litcoffee-sms",
+  "version": "0.1.0",
+  "description": "A simple literate CoffeeScript program for sending text messages via email.",
+  "main": "lib/sms.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "chalk": "^0.5.1",
+    "nodemailer": "^1.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/reillysiemens/litcoffee-sms.git"
+  },
+  "keywords": [
+    "SMS"
+  ],
+  "author": "Reilly Tucker Siemens <reilly.siemens@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/reillysiemens/litcoffee-sms/issues"
+  },
+  "homepage": "https://github.com/reillysiemens/litcoffee-sms"
+}
